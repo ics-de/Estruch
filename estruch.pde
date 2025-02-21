@@ -26,7 +26,10 @@ float filterThreshold = 0;
 
 boolean backgroundBleed = true;
 
-int drawMode = 1;  //0 = quadrat, 1 = ellipse, 2 = imatge
+int drawMode = 0;  //0 = quadrat, 1 = ellipse, 2 = imatge
+boolean isMain = true;  //ordinador principal
+
+
 
 void setup() {
   size(1920, 1080);
@@ -36,9 +39,13 @@ void setup() {
 
   midiBus.list();
   midiCreateBus();
+  oscSetUp();
 
   //crear llista d'imatges a utilitzar
   LoadImageList();
+  PreloadImatge();
+  LoadPromptsList();
+  Screenshot();
 }
 
 void draw() {
@@ -49,7 +56,8 @@ void draw() {
   {
     background(0);
   }
-
+  DisplayScreenshot();
+  
   switch(drawMode) {
 
   case 0:
@@ -64,12 +72,16 @@ void draw() {
     Imatge();
     break;
   }
+
+  if (isMain) {
+    DisplayPrompt();
+  }
 }
 
 
 
 void Quadrat() {
-  int bevelQ = int(lerp(0, scaleX/2, bevel));
+  //int bevelQ = int(lerp(0, scaleX/2, bevel));
 
   noStroke();
   fill(colorR, colorG, colorB, colorA);
@@ -104,5 +116,23 @@ void Imatge() {
   if (filterBlur > 0)
   {
     filter(BLUR, filterBlur);
+  }
+}
+
+
+
+void keyPressed() {
+  if (key == ' ') {
+    if (isMain)
+    {
+      RandomPrompt();
+    }
+  }
+  
+  if (key == 'p') {
+    if(isMain){
+      oscSend();
+      Screenshot();
+    }
   }
 }

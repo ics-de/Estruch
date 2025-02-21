@@ -4,7 +4,7 @@ MidiBus midiBus; // The MidiBus
 
 void midiCreateBus()
 {
-  midiBus = new MidiBus(this, 2, 5);
+  midiBus = new MidiBus(this, 1, 4);
 }
 
 
@@ -12,6 +12,7 @@ void midiCreateBus()
 //canviar aquest valor segons el number del primer fader
 final int midiFaderAddress = 70;
 final int midiEffectsAddress = 1;
+final int midiModeAddress = 36;
 final int midiImageAddress = 40;
 
 
@@ -51,7 +52,8 @@ void controllerChange(int channel, int number, int value) {
     break;
 
   case midiFaderAddress + 7:
-    colorA = value * 2;
+    //colorA = value * 2;
+    density = int(value/2)+1;
     break;
 
   case midiFaderAddress + 8:
@@ -61,9 +63,6 @@ void controllerChange(int channel, int number, int value) {
   case midiFaderAddress + 9:
     density = int(value/2)+1;
     break;
-
-
-
 
     //Efectes
   case midiEffectsAddress:
@@ -87,7 +86,30 @@ void controllerChange(int channel, int number, int value) {
 
 void noteOn(int channel, int pitch, int velocity) {
 
-  SetImatge(pitch-midiImageAddress);
+  if (pitch-midiImageAddress >= 0) {
+    SetImatge(pitch-midiImageAddress);
+  }
+
+  switch(pitch) {
+  case midiImageAddress:
+    SetImatge(pitch-midiImageAddress);
+    break;
+  case midiImageAddress+1:
+    SetImatge(pitch-midiImageAddress);
+    break;
+  case midiImageAddress+2:
+    SetImatge(pitch-midiImageAddress);
+    break;
+  case midiModeAddress:
+    drawMode = 0;
+    break;
+  case midiModeAddress+1:
+    drawMode = 1;
+    break;
+  case midiModeAddress+2:
+    drawMode = 2;
+    break;
+  }
 
   // Receive a noteOn
   println();

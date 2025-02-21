@@ -7,6 +7,10 @@ void LoadImageList() {
   imageList.append("D.jpg");
 }
 
+void PreloadImatge(){
+  image = loadImage(imageList.get(0));
+}
+
 void SetImatge(int currImg)
 {
   if (imageList.get(currentImage) != null)
@@ -14,5 +18,6 @@ void SetImatge(int currImg)
     currentImage = currImg;
     image = loadImage(imageList.get(currentImage));
     println("set image to " + imageList.get(currentImage));
+    drawMode = 2;
   }
 }
