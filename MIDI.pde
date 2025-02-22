@@ -57,26 +57,12 @@ void controllerChange(int channel, int number, int value) {
     case midiFaderAddress + 7:
       colorA = value * 2;
       break;
-
-      case midiButtonAddress:
-      if(isMain){
-      GeneratePrompt();
-      }
-      break;
-      case midiButtonAddress+1:
-      break;
-      case midiButtonAddress+2:
-      break;
-      case midiButtonAddress+3:
-      Screenshot();
-      break;
     }
 
   case 1:
     switch(number) {
     case 0:
       bevel = float(value)/127*2000;
-      println("bevel: " + bevel);
       break;
 
     case 1:
@@ -100,20 +86,19 @@ void controllerChange(int channel, int number, int value) {
   }
 
 
+  /*
   //Debug info MIDI
-  println();
-  println("Controller Change:");
-  println("--------");
-  println("Channel:"+channel);
-  println("Number:"+number);
-  println("Value:"+value);
+   println();
+   println("Controller Change:");
+   println("--------");
+   println("Channel:"+channel);
+   println("Number:"+number);
+   println("Value:"+value);
+   */
 }
 
 void noteOn(int channel, int pitch, int velocity) {
 
-  if (pitch == midiImageAddress) {
-    SetImatge(pitch-midiImageAddress);
-  }
 
   if (channel == 0) {
     switch(pitch) {
@@ -129,6 +114,36 @@ void noteOn(int channel, int pitch, int velocity) {
     case 76:
       SetDrawMode(3);
       break;
+
+    case 41:
+      SetImatge(0);
+      break;
+    case 42:
+      SetImatge(1);
+      break;
+    case 43:
+      SetImatge(2);
+      break;
+    case 44:
+      SetImatge(3);
+      break;
+
+    case midiButtonAddress:
+      if (isMain) {
+        GeneratePrompt();
+      }
+      break;
+    case midiButtonAddress+1:
+      //Clear();
+      //oscSendClear();
+      break;
+    case midiButtonAddress+2:
+      break;
+    case midiButtonAddress+3:
+      //Screenshot();
+      break;
+
+
     default:
       break;
     }

@@ -21,7 +21,7 @@ void GeneratePrompt() {
   println("generate prompt");
   selectedPrompt = promptList.get(floor(random(0, promptList.size())));
   Clear();
-  oscSendClear();
+  //oscSendClear();
 }
 
 void DisplayPrompt() {

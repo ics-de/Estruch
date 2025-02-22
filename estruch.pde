@@ -108,7 +108,7 @@ void Imatge() {
   image(image, posX, posY, scaleX, scaleY);
 
   //Efectes
-
+  
   if (filterThreshold > 0)
   {
     filter(THRESHOLD, filterThreshold);
@@ -117,6 +117,7 @@ void Imatge() {
   {
     filter(BLUR, filterBlur);
   }
+  
 }
 
 
@@ -128,8 +129,13 @@ void keyPressed() {
       GeneratePrompt();
     }
   }
-  
   if (key == 'p') {
+    Screenshot();
+    if(isMain){
+      oscSendScreenshot();
+    }
+  }
+  if (key == 'o') {
     Screenshot();
     if(isMain){
       oscSendScreenshot();
