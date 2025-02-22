@@ -66,7 +66,16 @@ void controllerChange(int channel, int number, int value) {
       break;
 
     case 1:
-      density = int(value/2)+1;
+      densityX = int(value/2)+1;
+      break;
+    case 2:
+      densityY = int(value/2)+1;
+      break;
+    case 3:
+      spacingX = value;
+      break;
+      case 4:
+      spacingY = value;
       break;
     }
     break;

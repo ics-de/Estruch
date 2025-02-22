@@ -12,8 +12,10 @@ int colorB = 255;
 int colorA = 255;
 
 float bevel = 0;
-int density = 1;  //quantes shapes dibuixades alhora
-int spacing = 5;  //pixel spacing
+int densityX = 1;  //quantes shapes dibuixades alhora
+int densityY = 1;  //quantes shapes dibuixades alhora
+int spacingX = 0;  //pixel spacing
+int spacingY = 0;  //pixel spacing
 
 //Imatges
 PImage image;
@@ -32,8 +34,8 @@ boolean isMain = true;  //ordinador principal
 
 
 void setup() {
-  size(1920, 1080);
-  fullScreen(P2D, 1);
+  size(1920/2, 1080/2);
+  fullScreen(1);
   noCursor();
   background(0);
 
@@ -46,6 +48,8 @@ void setup() {
   PreloadImatge();
   LoadPromptsList();
   Screenshot();
+  
+  //audioSetup();
 }
 
 void draw() {
@@ -76,6 +80,9 @@ void draw() {
   if (isMain) {
     DisplayPrompt();
   }
+  if(audioEnabled){
+  //audioPlay();
+  }
 }
 
 
@@ -85,9 +92,9 @@ void Quadrat() {
 
   noStroke();
   fill(colorR, colorG, colorB, colorA);
-  for (int x = 0; x < density; x++) {
-    for (int y = 0; y < density; y++) {
-      rect(posX+(scaleX+spacing)*x, posY+(scaleY+spacing)*y, scaleX, scaleY, bevel);
+  for (int x = 0; x < densityX; x++) {
+    for (int y = 0; y < densityY; y++) {
+      rect(posX+(scaleX+spacingX)*x, posY+(scaleY+spacingY)*y, scaleX, scaleY, bevel);
     }
   }
 }
@@ -96,14 +103,15 @@ void Ellipse() {
   noStroke();
   fill(colorR, colorG, colorB, colorA);
   ellipseMode(CORNER);
-  for (int x = 0; x < density; x++) {
-    for (int y = 0; y < density; y++) {
-      ellipse(posX+scaleX*x, posY+scaleY*y, scaleX, scaleY);
+  for (int x = 0; x < densityX; x++) {
+    for (int y = 0; y < densityY; y++) {
+      ellipse(posX+(scaleX+spacingX)*x, posY+(scaleY+spacingY)*y, scaleX, scaleY);
     }
   }
 }
 
 void Imatge() {
+  /*
   tint(colorR, colorG, colorB, colorA);
   image(image, posX, posY, scaleX, scaleY);
 
@@ -117,7 +125,7 @@ void Imatge() {
   {
     filter(BLUR, filterBlur);
   }
-  
+  */
 }
 
 
@@ -140,6 +148,9 @@ void keyPressed() {
     if(isMain){
       oscSendScreenshot();
     }
+  }
+  if (key == 'a') {
+    ToggleAudio();
   }
 }
 

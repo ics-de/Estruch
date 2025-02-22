@@ -14,16 +14,18 @@ void LoadImageList() {
 }
 
 void PreloadImatge(){
-  image = loadImage(imageList.get(0));
+  //image = loadImage(imageList.get(0));
 }
 
 void SetImatge(int currImg)
 {
+  /*
   if (imageList.get(currentImage) != null)
   {
     currentImage = currImg;
-    image = loadImage(imageList.get(currentImage));
+    //image = loadImage(imageList.get(currentImage));
     println("set image to " + imageList.get(currentImage));
     SetDrawMode(2);
   }
+  */
 }
