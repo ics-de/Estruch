@@ -15,11 +15,24 @@ void oscSetUp() {
   ipClaudia = new NetAddress("192.168.1.73", 12000);
 }
 
-void oscSend() {
+void oscSendScreenshot() {
   if (isMain) {
     OscMessage oscMessage = new OscMessage("/game");
 
     oscMessage.add("screenshot");
+
+    /* send the message */
+    oscP5.send(oscMessage, ipMiguel);
+    oscP5.send(oscMessage, ipOriol);
+    oscP5.send(oscMessage, ipClaudia);
+  }
+}
+
+void oscSendClear() {
+  if (isMain) {
+    OscMessage oscMessage = new OscMessage("/game");
+
+    oscMessage.add("clear");
 
     /* send the message */
     oscP5.send(oscMessage, ipMiguel);
@@ -34,9 +47,12 @@ void oscEvent(OscMessage theOscMessage) {
   print(" addrpattern: "+theOscMessage.addrPattern());
   println(" typetag: "+theOscMessage.typetag());
   if (!isMain) {
-    Screenshot();
-
+    
     if (theOscMessage.get(0).stringValue() == "screenshot") {
+      Screenshot();
+    }
+    if (theOscMessage.get(0).stringValue() == "clear") {
+      Clear();
     }
   }
 }

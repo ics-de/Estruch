@@ -14,6 +14,7 @@ final int midiFaderAddress = 77;
 final int midiEffectsAddress = 1;
 //final int midiModeAddress = 0;
 final int midiImageAddress = 40;
+final int midiButtonAddress = 105;
 
 
 //Aquesta funció s'executa cada vegada que el programa rep informació MIDI
@@ -21,51 +22,70 @@ void controllerChange(int channel, int number, int value) {
   // Receive a controllerChange
 
 
-  //Segons el valor de 'number', canviar una variable o una altra
-  switch (number) {
-  case midiFaderAddress:
-    posX = int(map(value, 0, 127, 0, width));
+  switch(channel) {
+  case 0:
+    //Segons el valor de 'number', canviar una variable o una altra
+    switch (number) {
+    case midiFaderAddress:
+      posX = int(map(value, 0, 127, 0, width));
+      break;
+
+    case midiFaderAddress + 1:
+      posY = int(map(value, 0, 127, 0, height));
+      break;
+
+    case midiFaderAddress + 2:
+      scaleX = int(map(value, 0, 127, 0, width));
+      break;
+
+    case midiFaderAddress + 3:
+      scaleY = int(map(value, 0, 127, 0, height));
+      break;
+
+    case midiFaderAddress + 4:
+      colorR = value * 2;
+      break;
+
+    case midiFaderAddress + 5:
+      colorG = value * 2;
+      break;
+
+    case midiFaderAddress + 6:
+      colorB = value * 2;
+      break;
+
+    case midiFaderAddress + 7:
+      colorA = value * 2;
+      break;
+
+      case midiButtonAddress:
+      if(isMain){
+      GeneratePrompt();
+      }
+      break;
+      case midiButtonAddress+1:
+      break;
+      case midiButtonAddress+2:
+      break;
+      case midiButtonAddress+3:
+      Screenshot();
+      break;
+    }
+
+  case 1:
+    switch(number) {
+    case 0:
+      bevel = float(value)/127*2000;
+      println("bevel: " + bevel);
+      break;
+
+    case 1:
+      density = int(value/2)+1;
+      break;
+    }
     break;
 
-  case midiFaderAddress + 1:
-    posY = int(map(value, 0, 127, 0, height));
-    break;
-
-  case midiFaderAddress + 2:
-    scaleX = int(map(value, 0, 127, 0, width));
-    break;
-
-  case midiFaderAddress + 3:
-    scaleY = int(map(value, 0, 127, 0, height));
-    break;
-
-  case midiFaderAddress + 4:
-    colorR = value * 2;
-    break;
-
-  case midiFaderAddress + 5:
-    colorG = value * 2;
-    break;
-
-  case midiFaderAddress + 6:
-    colorB = value * 2;
-    break;
-
-  case midiFaderAddress + 7:
-    //colorA = value * 2;
-    density = int(value/2)+1;
-    break;
-
-  case midiFaderAddress + 8:
-    bevel = float(value)/127*1000;
-    break;
-
-  case midiFaderAddress + 9:
-    density = int(value/2)+1;
-    break;
-  }
-
-  if (channel == 2) {
+  case 2:
     switch(number) {
       //Efectes
     case midiEffectsAddress:
@@ -76,7 +96,9 @@ void controllerChange(int channel, int number, int value) {
       filterBlur = float(value)/127;
       break;
     }
+    break;
   }
+
 
   //Debug info MIDI
   println();
@@ -104,7 +126,7 @@ void noteOn(int channel, int pitch, int velocity) {
     case 75:
       SetDrawMode(2);
       break;
-      case 76:
+    case 76:
       SetDrawMode(3);
       break;
     default:

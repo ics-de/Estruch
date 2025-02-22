@@ -33,7 +33,7 @@ boolean isMain = true;  //ordinador principal
 
 void setup() {
   size(1920, 1080);
-  //fullScreen(P2D, 1);
+  fullScreen(P2D, 1);
   noCursor();
   background(0);
 
@@ -87,7 +87,7 @@ void Quadrat() {
   fill(colorR, colorG, colorB, colorA);
   for (int x = 0; x < density; x++) {
     for (int y = 0; y < density; y++) {
-      rect(posX+(scaleX+spacing)*x, posY+(scaleY+spacing)*y, scaleX, scaleY);
+      rect(posX+(scaleX+spacing)*x, posY+(scaleY+spacing)*y, scaleX, scaleY, bevel);
     }
   }
 }
@@ -125,14 +125,14 @@ void keyPressed() {
   if (key == ' ') {
     if (isMain)
     {
-      RandomPrompt();
+      GeneratePrompt();
     }
   }
   
   if (key == 'p') {
+    Screenshot();
     if(isMain){
-      oscSend();
-      Screenshot();
+      oscSendScreenshot();
     }
   }
 }
