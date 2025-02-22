@@ -136,3 +136,8 @@ void keyPressed() {
     }
   }
 }
+
+void SetDrawMode(int mode){
+  drawMode = mode;
+  println("drawMode: " + drawMode);
+}

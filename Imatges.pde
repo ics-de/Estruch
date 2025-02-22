@@ -18,6 +18,6 @@ void SetImatge(int currImg)
     currentImage = currImg;
     image = loadImage(imageList.get(currentImage));
     println("set image to " + imageList.get(currentImage));
-    drawMode = 2;
+    SetDrawMode(2);
   }
 }

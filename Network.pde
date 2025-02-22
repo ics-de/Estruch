@@ -10,9 +10,9 @@ NetAddress ipClaudia;
 void oscSetUp() {
   oscP5 = new OscP5(this, 12000);
 
-  ipMiguel = new NetAddress("192.168.1.131", 12000);
-  ipOriol = new NetAddress("192.168.1.131", 12000);
-  ipClaudia = new NetAddress("192.168.1.131", 12000);
+  ipMiguel = new NetAddress("192.168.50.18", 12000);
+  ipOriol = new NetAddress("192.168.50.20", 12000);
+  ipClaudia = new NetAddress("192.168.1.73", 12000);
 }
 
 void oscSend() {
@@ -34,8 +34,9 @@ void oscEvent(OscMessage theOscMessage) {
   print(" addrpattern: "+theOscMessage.addrPattern());
   println(" typetag: "+theOscMessage.typetag());
   if (!isMain) {
+    Screenshot();
+
     if (theOscMessage.get(0).stringValue() == "screenshot") {
-      Screenshot();
     }
   }
 }

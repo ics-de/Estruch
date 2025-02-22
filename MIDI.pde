@@ -10,9 +10,9 @@ void midiCreateBus()
 
 
 //canviar aquest valor segons el number del primer fader
-final int midiFaderAddress = 70;
+final int midiFaderAddress = 77;
 final int midiEffectsAddress = 1;
-final int midiModeAddress = 36;
+//final int midiModeAddress = 0;
 final int midiImageAddress = 40;
 
 
@@ -63,53 +63,55 @@ void controllerChange(int channel, int number, int value) {
   case midiFaderAddress + 9:
     density = int(value/2)+1;
     break;
-
-    //Efectes
-  case midiEffectsAddress:
-    filterThreshold = float(value)/127;
-    break;
-
-  case midiEffectsAddress + 1:
-    filterBlur = float(value)/127;
-    break;
   }
-  /*
+
+  if (channel == 2) {
+    switch(number) {
+      //Efectes
+    case midiEffectsAddress:
+      filterThreshold = float(value)/127*2;
+      break;
+
+    case midiEffectsAddress + 1:
+      filterBlur = float(value)/127;
+      break;
+    }
+  }
+
   //Debug info MIDI
-   println();
-   println("Controller Change:");
-   println("--------");
-   println("Channel:"+channel);
-   println("Number:"+number);
-   println("Value:"+value);
-   */
+  println();
+  println("Controller Change:");
+  println("--------");
+  println("Channel:"+channel);
+  println("Number:"+number);
+  println("Value:"+value);
 }
 
 void noteOn(int channel, int pitch, int velocity) {
 
-  if (pitch-midiImageAddress >= 0) {
+  if (pitch == midiImageAddress) {
     SetImatge(pitch-midiImageAddress);
   }
 
-  switch(pitch) {
-  case midiImageAddress:
-    SetImatge(pitch-midiImageAddress);
-    break;
-  case midiImageAddress+1:
-    SetImatge(pitch-midiImageAddress);
-    break;
-  case midiImageAddress+2:
-    SetImatge(pitch-midiImageAddress);
-    break;
-  case midiModeAddress:
-    drawMode = 0;
-    break;
-  case midiModeAddress+1:
-    drawMode = 1;
-    break;
-  case midiModeAddress+2:
-    drawMode = 2;
-    break;
+  if (channel == 0) {
+    switch(pitch) {
+    case 0:
+      SetDrawMode(0);
+      break;
+    case 72:
+      SetDrawMode(1);
+      break;
+    case 75:
+      SetDrawMode(2);
+      break;
+      case 76:
+      SetDrawMode(3);
+      break;
+    default:
+      break;
+    }
   }
+
 
   // Receive a noteOn
   println();
@@ -122,12 +124,13 @@ void noteOn(int channel, int pitch, int velocity) {
 
 void noteOff(int channel, int pitch, int velocity) {
 
-
+  /*
   // Receive a noteOff
-  println();
-  println("Note Off:");
-  println("--------");
-  println("Channel:"+channel);
-  println("Pitch:"+pitch);
-  println("Velocity:"+velocity);
+   println();
+   println("Note Off:");
+   println("--------");
+   println("Channel:"+channel);
+   println("Pitch:"+pitch);
+   println("Velocity:"+velocity);
+   */
 }
