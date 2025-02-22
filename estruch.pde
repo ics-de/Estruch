@@ -3,6 +3,8 @@
 int posX = 0;
 int posY = 0;
 
+float rotation = 0;
+
 int scaleX = 0;
 int scaleY = 0;
 
@@ -34,8 +36,8 @@ boolean isMain = true;  //ordinador principal
 
 
 void setup() {
-  size(1920/2, 1080/2);
-  fullScreen(1);
+  size(1920, 1080);
+  fullScreen(2);
   noCursor();
   background(0);
 
@@ -89,17 +91,19 @@ void draw() {
 
 void Quadrat() {
   //int bevelQ = int(lerp(0, scaleX/2, bevel));
-
   noStroke();
   fill(colorR, colorG, colorB, colorA);
   for (int x = 0; x < densityX; x++) {
     for (int y = 0; y < densityY; y++) {
+        //rotate(rotation);
+
       rect(posX+(scaleX+spacingX)*x, posY+(scaleY+spacingY)*y, scaleX, scaleY, bevel);
     }
   }
 }
 
 void Ellipse() {
+  //rotate(rotation);
   noStroke();
   fill(colorR, colorG, colorB, colorA);
   ellipseMode(CORNER);
@@ -144,10 +148,7 @@ void keyPressed() {
     }
   }
   if (key == 'o') {
-    Screenshot();
-    if(isMain){
-      oscSendScreenshot();
-    }
+    Clear();
   }
   if (key == 'a') {
     ToggleAudio();
