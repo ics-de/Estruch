@@ -2,15 +2,14 @@ void LoadImageList() {
   imageList = new StringList();
 
   imageList.append("A.png");
-  imageList.append("B.jpg");
-  imageList.append("C.jpg");
+  //imageList.append("B.jpg");
+  //imageList.append("C.jpg");
   imageList.append("D.jpg");
-  /*
   imageList.append("E.jpg");
-  imageList.append("F.jpg");
-  imageList.append("G.jpg");
-  imageList.append("H.jpg");
-  */
+  //imageList.append("F.jpg");
+  //imageList.append("G.jpg");
+  //imageList.append("H.jpg");
+  
 }
 
 void PreloadImatge(){

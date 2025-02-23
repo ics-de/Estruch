@@ -124,16 +124,16 @@ void noteOn(int channel, int pitch, int velocity) {
       SetDrawMode(3);
       break;
 
-    case 41:
+    case midiImageAddress:
       SetImatge(0);
       break;
-    case 42:
+    case midiImageAddress+1:
       SetImatge(1);
       break;
-    case 43:
+    case midiImageAddress+2:
       SetImatge(2);
       break;
-    case 44:
+    case midiImageAddress+3:
       SetImatge(3);
       break;
 

@@ -115,7 +115,7 @@ void Ellipse() {
 }
 
 void Imatge() {
-  /*
+  
   tint(colorR, colorG, colorB, colorA);
   image(image, posX, posY, scaleX, scaleY);
 
@@ -129,7 +129,7 @@ void Imatge() {
   {
     filter(BLUR, filterBlur);
   }
-  */
+  
 }
 
 
